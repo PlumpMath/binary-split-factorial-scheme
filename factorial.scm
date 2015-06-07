@@ -1,5 +1,8 @@
+;;; http://www.luschny.de/math/factorial/binarysplitfact.html
+
 (define (bit-length n)
-  ""
+  "Returns the number of bits necessary to represent an integer in binary,
+   excluding the sign and leading zeros."
   (string-length (number->string n 2)))
 
 (define (count-set-bits n)
@@ -10,7 +13,7 @@
         (loop (+ count 1) (logand n (- n 1))))))
 
 (define (partial-product start stop)
-  ""
+  "Product of integers, start and stop should both be odd, with start <= stop."
   ((lambda (i)
      (if (even? i)
          (let loop ((n (* start stop))
@@ -26,7 +29,7 @@
   (logior (+ (floor (/ n (integer-expt 2 i))) 1) 1))
 
 (define (binsplit-factorial n)
-  ""
+  "Factorial of nonnegative integer n, via binary split."
   (let loop ((i (bit-length n))
              (inner 1) (outer 1)
              (a 1) (b 1))

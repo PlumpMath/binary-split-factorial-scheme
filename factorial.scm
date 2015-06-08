@@ -34,10 +34,10 @@
   (let loop ((i (bit-length n))
              (inner 1) (outer 1)
              (a 1) (b 1))
-    (if (< i -1) (* outer (integer-expt 2 (- n (count-set-bits n))))
-        (let ((inner (* inner (partial-product a (- b 2)))))
-          (loop (- i 1)
-                inner
-                (* outer inner)
-                (inner-number n (+ i 1))
-                (inner-number n i))))))
+    (cond ((< i -1) (* outer (integer-expt 2 (- n (count-set-bits n)))))
+          (else (let ((inner (* inner (partial-product a (- b 2)))))
+                  (loop (- i 1)
+                        inner
+                        (* outer inner)
+                        (inner-number n (+ i 1))
+                        (inner-number n i)))))))

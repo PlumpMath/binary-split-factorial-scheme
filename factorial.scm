@@ -15,13 +15,14 @@
 (define (partial-product start stop)
   "Product of integers, start and stop should both be odd, with start <= stop."
   ((lambda (i)
-     (if (even? i)
-         (let loop ((n (* start stop))
-                    (r (- (* 4 i) 8))
-                    (f 1))
-           (if (< r 0) f
-               (loop (+ n r) (- r 8) (* f n))))
-         (* stop (partial-product start (- stop 2)))))
+     (cond ((< stop start) 1)
+           ((even? i)
+            (let loop ((n (* start stop))
+                       (r (- (* 4 i) 8))
+                       (f 1))
+              (if (< r 0) f
+                  (loop (+ n r) (- r 8) (* f n)))))
+           (else (* stop (partial-product start (- stop 2))))))
    (+ 1 (/ (- stop start) 2))))
 
 (define (inner-number n i)
